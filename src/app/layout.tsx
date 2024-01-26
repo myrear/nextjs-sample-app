@@ -1,6 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Container, styled } from '../../styled-system/jsx'
+import { ReactNode } from 'react'
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,12 +14,27 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Record<'children', ReactNode>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <styled.header
+          position={'sticky'}
+          top="0"
+          zIndex={'1'}
+          py="3"
+          bg="white"
+          borderColor={'gray.200'}
+          borderBottomWidth={'thin'}
+        >
+          <Container>
+            <styled.h1 fontWeight={'bold'} fontSize={'lg'}>
+              <Link href={'/'}>Todo App</Link>
+            </styled.h1>
+          </Container>
+        </styled.header>
+        <Container>{children}</Container>
+      </body>
     </html>
   )
 }
