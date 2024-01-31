@@ -1,5 +1,5 @@
 import { getTodos } from '@/todo'
-import { Flex, Grid, styled } from '../../../styled-system/jsx'
+import { Flex, Grid } from '../../../styled-system/jsx'
 import Link from 'next/link'
 
 export default async function Todos() {
@@ -15,7 +15,9 @@ export default async function Todos() {
           borderColor={'gray.200'}
           borderStyle={'solid'}
         >
-          <Link href={`/todo/${id}`}>title: {title}</Link>
+          <Link href={`/todo/${id}`} scroll={false}>
+            title: {title}
+          </Link>
           description: {description}
         </Grid>
       ))}

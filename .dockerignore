@@ -1,0 +1,10 @@
+Dockerfile
+Dockerfile.local
+.dockerignore
+node_modules
+*-debug.log
+README.md
+.next
+docker
+.git
+.pnpm-store

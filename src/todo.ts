@@ -1,13 +1,24 @@
-export type Todo = {
-  id: string
-  title: string
-  description: string
-}
+import { Todo } from '@prisma/client'
+import { prisma } from './prisma'
+import { revalidatePath } from 'next/cache'
+import { Route } from 'next'
+
+export { type Todo }
 
 export function getTodos(): Promise<Todo[]> {
-  return fetch('http://localhost:3001/todo').then((res) => res.json())
+  return prisma.todo.findMany()
 }
 
 export function getTodo(id: string): Promise<Todo> {
-  return fetch(`http://localhost:3001/todo/${id}`).then((res) => res.json())
+  return prisma.todo.findFirstOrThrow({ where: { id } })
+}
+
+export async function addTodo(data: Pick<Todo, 'title' | 'description'>) {
+  await prisma.todo.create({
+    data,
+  })
+}
+
+export function revalidateTodos() {
+  revalidatePath('/todo' satisfies Route)
 }
