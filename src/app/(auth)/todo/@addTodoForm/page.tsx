@@ -4,13 +4,12 @@ import { CreateTodoForm, SubmitButton } from './_/components'
 export default function CreateTodoFormPage() {
   return (
     <CreateTodoForm>
-      <FormLabel>title</FormLabel>
-      <Input name="title" />
+      <FormLabel>
+        title
+        <Input name="title" />
+      </FormLabel>
 
-      <FormLabel>description</FormLabel>
-      <Input name="description" />
-
-      <SubmitButton>submit</SubmitButton>
+      <SubmitButton>追加</SubmitButton>
     </CreateTodoForm>
   )
 }

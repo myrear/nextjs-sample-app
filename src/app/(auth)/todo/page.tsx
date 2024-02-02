@@ -1,26 +1,25 @@
 import { getTodos } from '@/todo'
-import { Flex, Grid } from '../../../../styled-system/jsx'
+import { Box, Circle, Grid } from '../../../../styled-system/jsx'
 import Link from 'next/link'
+import React from 'react'
+import { getActiveSession } from '@/auth'
 
 export default async function Todos() {
-  const todos = await getTodos()
+  const { userId } = await getActiveSession()
+  const todos = await getTodos(userId)
 
   return (
-    <Flex direction={'column'} gap={4}>
-      {todos.map(({ id, title, description }) => (
-        <Grid
-          key={id}
-          rounded={'md'}
-          borderWidth={'thin'}
-          borderColor={'gray.200'}
-          borderStyle={'solid'}
-        >
-          <Link href={`/todo/${id}`} scroll={false}>
-            title: {title}
-          </Link>
-          description: {description}
-        </Grid>
+    <Grid gridTemplateColumns={'auto 1fr'} gap={2} alignItems="center">
+      {todos.map(({ id, title, completed }) => (
+        <React.Fragment key={id}>
+          <Circle size={1} bg="black" />
+          <Box textDecoration={completed ? 'line-through' : 'inherit'}>
+            <Link href={`/todo/${id}`} scroll={false}>
+              {title}
+            </Link>
+          </Box>
+        </React.Fragment>
       ))}
-    </Flex>
+    </Grid>
   )
 }

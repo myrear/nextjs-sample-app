@@ -1,13 +1,25 @@
 import { getTodo } from '@/todo'
-import { styled } from '../../../../../styled-system/jsx'
+import { Checkbox, Form, Input } from '@/components/ui'
+import { updateTodoAction } from '../@modal/(.)[id]/_actions'
+import { SubmitButton } from '@/components/shared'
+import { getActiveSession } from '@/auth'
 
 export default async function Todo({ params }: { params: { id: string } }) {
-  const todo = await getTodo(params.id)
+  const { userId } = await getActiveSession()
+  const todo = await getTodo(userId, params.id)
 
   return (
-    <styled.div display={'grid'} gap={2}>
-      <styled.h2>aaaa: {todo.title}</styled.h2>
-      <styled.p>bbbbbb: {todo.description}</styled.p>
-    </styled.div>
+    <Form
+      display="grid"
+      gridTemplateColumns={'1fr auto'}
+      gap={2}
+      action={updateTodoAction.bind(null, params.id)}
+    >
+      <Input defaultValue={todo.title} name="title" />
+      <Checkbox defaultChecked={todo.completed} name="completed">
+        終わった
+      </Checkbox>
+      <SubmitButton gridColumn={'1/-1'}>更新</SubmitButton>
+    </Form>
   )
 }

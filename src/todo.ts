@@ -5,20 +5,55 @@ import { Route } from 'next'
 
 export { type Todo }
 
-export function getTodos(): Promise<Todo[]> {
-  return prisma.todo.findMany()
+export async function getTodos(userId: string): Promise<Todo[]> {
+  const { todos } = await prisma.user.findUniqueOrThrow({
+    where: { id: userId },
+    select: { todos: { orderBy: { createdAt: 'asc' } } },
+  })
+  return todos
 }
 
-export function getTodo(id: string): Promise<Todo> {
-  return prisma.todo.findFirstOrThrow({ where: { id } })
+export async function getTodo(userId: string, todoId: string): Promise<Todo> {
+  return prisma.todo.findFirstOrThrow({
+    where: {
+      userId,
+      id: todoId,
+    },
+  })
 }
 
-export async function addTodo(data: Pick<Todo, 'title' | 'description'>) {
-  await prisma.todo.create({
-    data,
+export async function addTodo(userId: string, { title }: Pick<Todo, 'title'>) {
+  await prisma.user.update({
+    where: {
+      id: userId,
+    },
+    data: {
+      todos: { create: { title } },
+    },
+  })
+}
+
+export async function updateTodo(
+  userId: string,
+  todoId: string,
+  { title, completed }: Partial<Pick<Todo, 'title' | 'completed'>>
+) {
+  await prisma.todo.update({
+    where: {
+      id: todoId,
+      userId,
+    },
+    data: {
+      title,
+      completed,
+    },
   })
 }
 
 export function revalidateTodos() {
   revalidatePath('/todo' satisfies Route)
+}
+
+export function revalidateTodo(id: string) {
+  revalidatePath(`/todo/${id}` satisfies Route<`/todo/${typeof id}`>)
 }
