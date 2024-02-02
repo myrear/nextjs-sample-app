@@ -1,5 +1,5 @@
 import { getTodos } from '@/todo'
-import { Flex, Grid } from '../../../styled-system/jsx'
+import { Flex, Grid } from '../../../../styled-system/jsx'
 import Link from 'next/link'
 
 export default async function Todos() {

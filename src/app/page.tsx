@@ -1,10 +1,16 @@
 import Link from 'next/link'
-import { styled } from '../../styled-system/jsx'
+import { Flex, VStack, styled } from '../../styled-system/jsx'
+import { Button } from '@/components/ui'
 
 export default async function Home() {
   return (
-    <styled.div>
-      <Link href={'/todo'}>todo</Link>
-    </styled.div>
+    <VStack gap={2} alignItems={'start'}>
+      <Button asChild>
+        <Link href={'/todo'}>/todo</Link>
+      </Button>
+      <Button asChild>
+        <Link href={'/cat'}>ねこです</Link>
+      </Button>
+    </VStack>
   )
 }

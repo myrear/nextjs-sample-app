@@ -1,5 +1,5 @@
 import { getTodo } from '@/todo'
-import { styled } from '../../../../styled-system/jsx'
+import { styled } from '../../../../../styled-system/jsx'
 
 export default async function Todo({ params }: { params: { id: string } }) {
   const todo = await getTodo(params.id)

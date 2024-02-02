@@ -5,7 +5,8 @@ import { Container, Flex, styled } from '../../styled-system/jsx'
 import { ReactNode } from 'react'
 import Link from 'next/link'
 import { auth } from '@/auth'
-import { SignOutForm, SignInForm, SubmitButton } from './_components'
+import { SignOutForm, SignInForm } from './_components'
+import { SubmitButton } from '@/components/shared'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -48,7 +49,7 @@ export default async function RootLayout({
             </Flex>
           </Container>
         </styled.header>
-        <Container>{session ? children : 'サインインして'}</Container>
+        <Container>{children}</Container>
       </body>
     </html>
   )

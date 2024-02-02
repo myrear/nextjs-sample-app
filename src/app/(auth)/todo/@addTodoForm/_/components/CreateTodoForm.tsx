@@ -1,6 +1,6 @@
 'use client'
 
-import { addTodoAction } from '@/app/todo/@addTodoForm/_/actions'
+import { addTodoAction } from '@/app/(auth)/todo/@addTodoForm/_/actions'
 import { Form, FormProps } from '@/components/ui'
 import { useRef } from 'react'
 
