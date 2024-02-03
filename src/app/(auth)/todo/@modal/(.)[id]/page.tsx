@@ -1,16 +1,17 @@
-import { SubmitButton } from '@/components/shared'
+import { SubmitButton, SubmitIconButton } from '@/components/shared'
 import {
   Button,
   Checkbox,
   Dialog,
   Form,
+  Icon,
   IconButton,
   Icons,
   Input,
 } from '@/components/ui'
 import { getTodo } from '@/todo'
 import { Box } from 'styled-system/jsx'
-import { updateTodoAction } from './_actions'
+import { deleteTodoAction, updateTodoAction } from './_actions'
 import { getActiveSession } from '@/auth'
 
 export default async function TodoModal({
@@ -25,7 +26,7 @@ export default async function TodoModal({
     <Box px={4} pt={10} pb={4}>
       <Form
         display="grid"
-        gridTemplateColumns={'1fr auto'}
+        gridTemplateColumns={'1fr auto auto'}
         gap={2}
         action={updateTodoAction.bind(null, params.id)}
       >
@@ -33,6 +34,14 @@ export default async function TodoModal({
         <Checkbox defaultChecked={todo.completed} name="completed">
           終わった
         </Checkbox>
+        <SubmitIconButton
+          title="削除"
+          variant={'ghost'}
+          colorPalette={'red'}
+          formAction={deleteTodoAction.bind(null, params.id)}
+        >
+          <Icons.Trash />
+        </SubmitIconButton>
         <SubmitButton gridColumn={'1/-1'}>更新</SubmitButton>
       </Form>
       <Dialog.CloseTrigger asChild position="absolute" right="1" top="1">

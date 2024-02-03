@@ -50,6 +50,15 @@ export async function updateTodo(
   })
 }
 
+export async function deleteTodo(userId: string, todoId: string) {
+  await prisma.todo.delete({
+    where: {
+      userId,
+      id: todoId,
+    },
+  })
+}
+
 export function revalidateTodos() {
   revalidatePath('/todo' satisfies Route)
 }

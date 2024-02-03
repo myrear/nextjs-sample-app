@@ -1,7 +1,7 @@
 'use server'
 
 import { getActiveSession } from '@/auth'
-import { revalidateTodo, revalidateTodos, updateTodo } from '@/todo'
+import { deleteTodo, revalidateTodo, revalidateTodos, updateTodo } from '@/todo'
 import { redirect } from 'next/navigation'
 import * as v from 'valibot'
 
@@ -20,6 +20,15 @@ export async function updateTodoAction(todoId: string, formData: FormData) {
     todoId,
     v.parse(formSchema, Object.fromEntries(formData.entries()))
   )
+  revalidateTodo(todoId)
+  revalidateTodos()
+  // https://github.com/vercel/next.js/issues/54173#issuecomment-1876061117
+  redirect('/todo')
+}
+
+export async function deleteTodoAction(todoId: string) {
+  const { userId } = await getActiveSession()
+  await deleteTodo(userId, todoId)
   revalidateTodo(todoId)
   revalidateTodos()
   // https://github.com/vercel/next.js/issues/54173#issuecomment-1876061117

@@ -3,9 +3,13 @@ import { CreateTodoForm, SubmitButton } from './_/components'
 
 export default function CreateTodoFormPage() {
   return (
-    <CreateTodoForm>
+    <CreateTodoForm
+      display="grid"
+      gridTemplateColumns={'1fr auto'}
+      alignItems={'end'}
+    >
       <FormLabel>
-        title
+        タイトル
         <Input name="title" />
       </FormLabel>
 

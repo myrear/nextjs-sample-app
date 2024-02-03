@@ -1,1 +1,1 @@
-export { LuX as X } from 'react-icons/lu'
+export { LuX as X, LuTrash2 as Trash } from 'react-icons/lu'
