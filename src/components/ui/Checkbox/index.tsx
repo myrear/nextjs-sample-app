@@ -2,7 +2,7 @@
 
 import {
   Checkbox as ArkCheckbox,
-  type CheckboxProps as CheckboxRootProps,
+  type CheckboxRootProps,
 } from '@ark-ui/react/checkbox'
 import { forwardRef, type ReactNode } from 'react'
 import { css, cx } from 'styled-system/css'
