@@ -1,10 +1,8 @@
 import { SubmitButton, SubmitIconButton } from '@/components/shared'
 import {
-  Button,
   Checkbox,
   Dialog,
   Form,
-  Icon,
   IconButton,
   Icons,
   Input,
@@ -13,12 +11,15 @@ import { getTodo } from '@/todo'
 import { Box } from 'styled-system/jsx'
 import { deleteTodoAction, updateTodoAction } from './_actions'
 import { getActiveSession } from '@/auth'
+import { type Metadata } from 'next'
 
-export default async function TodoModal({
-  params,
-}: {
-  params: { id: string }
-}) {
+export type TodoPageProps = {
+  params: {
+    id: string
+  }
+}
+
+export default async function TodoModal({ params }: TodoPageProps) {
   const { userId } = await getActiveSession()
   const todo = await getTodo(userId, params.id)
 
@@ -51,4 +52,14 @@ export default async function TodoModal({
       </Dialog.CloseTrigger>
     </Box>
   )
+}
+
+export async function generateMetadata({
+  params,
+}: TodoPageProps): Promise<Metadata> {
+  const { userId } = await getActiveSession()
+  const { title } = await getTodo(userId, params.id)
+  return {
+    title,
+  }
 }

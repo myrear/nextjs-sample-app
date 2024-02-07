@@ -3,8 +3,9 @@ import { Checkbox, Form, Icons, Input } from '@/components/ui'
 import { deleteTodoAction, updateTodoAction } from '../@modal/(.)[id]/_actions'
 import { SubmitButton, SubmitIconButton } from '@/components/shared'
 import { getActiveSession } from '@/auth'
+import { TodoPageProps } from '../@modal/(.)[id]/page'
 
-export default async function Todo({ params }: { params: { id: string } }) {
+export default async function Todo({ params }: TodoPageProps) {
   const { userId } = await getActiveSession()
   const todo = await getTodo(userId, params.id)
 
@@ -33,3 +34,5 @@ export default async function Todo({ params }: { params: { id: string } }) {
     </Form>
   )
 }
+
+export { generateMetadata } from '../@modal/(.)[id]/page'
